@@ -6,7 +6,7 @@
  * Administración del sitio → Plugins → Plugins locales → Aistrix
  * 
  * @package    local_aistrix
- * @copyright  2025 Tu Nombre
+ * @copyright  2025 EPN
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
