@@ -1,29 +1,49 @@
 <?php
-/**
- * Local plugin aistrix - Library functions
- *
- * Este archivo contiene las funciones principales de la librería del plugin local_aistrix.
- * Aunque actualmente está vacío, aquí se definirían las funciones principales que el plugin
- * necesita para integrarse con el sistema de Moodle.
- *
- * Funciones típicas que se incluirían aquí:
- * - Hooks del sistema (callbacks)
- * - Funciones de inicialización
- * - Funciones de utilidad globales
- * - Integraciones con otros plugins
- *
- * @package    local_aistrix
- * @copyright  2024 EPN
- * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- */
-
 defined('MOODLE_INTERNAL') || die();
 
 /**
- * Placeholder para futuras funciones de librería del plugin aistrix
- * 
- * Ejemplos de funciones que podrían añadirse:
- * - local_aistrix_extend_settings_navigation()
- * - local_aistrix_before_footer()
- * - local_aistrix_pluginfile()
+ * Registra los assets de Aistrix
+ * (debe ejecutarse ANTES de que se imprima <head>).
  */
+function local_aistrix_require_assets(): void {
+    global $PAGE;
+
+    static $added = false;
+    if ($added) {
+        return;
+    }
+    $added = true;
+
+    $PAGE->requires->css('/local/aistrix/amd/build/local_aistrix.css');
+    $PAGE->requires->js_call_amd('local_aistrix/main', 'init');
+}
+
+/**
+ * Callback TEMPRANO: Moodle lo llama antes de cerrar el <head>.
+ * Aquí solo encolamos los assets.
+ */
+function local_aistrix_before_standard_html_head(): void {
+    // Opcional: restringir a usuarios con permiso para no cargar nada a invitados.
+    if (!has_capability('local/aistrix:view', context_system::instance())) {
+        return;
+    }
+    local_aistrix_require_assets();
+}
+
+/**
+ * Callback TARDE: Moodle lo llama antes de </footer>.
+ * Solo inserta el panel (el CSS y JS ya están listos).
+ *
+ * @return string  HTML del panel, o '' si el usuario no tiene permiso.
+ */
+function local_aistrix_before_footer(): string {
+    global $OUTPUT;
+
+    if (!has_capability('local/aistrix:view', context_system::instance())) {
+        return '';
+    }
+
+    // El helper ya corrió; no necesitamos llamar de nuevo.
+    $panel = new \local_aistrix\output\panel();
+    return $OUTPUT->render($panel);
+}

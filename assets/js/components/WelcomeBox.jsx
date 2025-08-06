@@ -11,7 +11,7 @@ export default function WelcomeBox() {
       <div className="welcomebox__body">
         <p>
           <b>Aistrix</b> es tu asistente de programación para Moodle.<br />
-          Actualmente puede analizar los errores de tu código VPL y explicártelos de forma sencilla.<br /><br />
+          Actualmente puede analizar los errores de tu código de VPL después de ser <b>evaluado</b> y explicártelos de forma sencilla.<br /><br />
           <b>¿Cómo usarlo?</b><br />
           Haz clic en una <b>carta de acción</b> (como "Analizar código") para recibir ayuda personalizada sobre el error que aparece en tu código.<br /><br />
           ¡Pronto habrá más funcionalidades!

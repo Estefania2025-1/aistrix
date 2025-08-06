@@ -14,6 +14,19 @@
  */
 defined('MOODLE_INTERNAL') || die();
 $capabilities = [
+
+    /* ============ 1. Permiso GLOBAL para ver el panel Aistrix ============ */
+    'local/aistrix:view' => [
+        'captype'      => 'read',
+        'contextlevel' => CONTEXT_SYSTEM,
+        'archetypes'   => [
+            'guest'   => CAP_PREVENT,   // Invitados: NO
+            'user'    => CAP_ALLOW,     // Todos los usuarios autenticados: SÍ
+            'teacher' => CAP_ALLOW,
+            'manager' => CAP_ALLOW,
+        ],
+    ],
+    
     // Capacidad para procesar VPLs con IA
     'local/aistrix:processvpl' => [
         'riskbitmask' => RISK_DATALOSS,  // Riesgo de pérdida de datos (puede modificar datos)

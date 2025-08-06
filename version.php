@@ -17,7 +17,7 @@ $plugin->component = 'local_aistrix';
 
 // Versión del plugin (formato: YYYYMMDDXX)
 // Incrementar este número fuerza upgrade en Moodle
-$plugin->version = 2025072801;
+$plugin->version = 2025080503;
 
 // Versión mínima de Moodle requerida (Moodle 4.0+)
 $plugin->requires = 2022041900;
@@ -30,4 +30,4 @@ $plugin->requires = 2022041900;
 $plugin->maturity = MATURITY_ALPHA;
 
 // Versión legible para humanos
-$plugin->release = '1.1';
+$plugin->release = '1.0';
